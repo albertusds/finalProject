@@ -7,9 +7,27 @@ import (
 	"finalproject/repositories"
 	"finalproject/services"
 
+	_ "finalproject/docs"
+
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// @title Go + Gin Todo API
+// @version 1.0
+// @description This is a sample server todo server. You can visit the GitHub repository at https://github.com/LordGhostX/swag-gin-demo
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /
+// @query.collection.format multi
 func main() {
 	db := configs.ConnectDB()
 
@@ -34,7 +52,8 @@ func main() {
 	socmedController := controllers.NewSocialMediaController(socmedService)
 
 	router := gin.Default()
-
+	//swagger router
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	userRouter := router.Group("/users")
 	{
 		userRouter.POST("/register", userController.RegisterUser)

@@ -19,6 +19,11 @@ func NewUserController(service *services.UserService) *UserController {
 	}
 }
 
+// @Summary get all users
+// @ID get-all-users
+// @Produce json
+// @Success 201 {object} params.RegisterUserRs
+// @Router /users [get]
 // controller for register user
 func (uc *UserController) RegisterUser(c *gin.Context) {
 	var req params.RegisterUserRq
